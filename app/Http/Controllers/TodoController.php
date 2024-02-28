@@ -31,14 +31,15 @@ class TodoController extends Controller
             $this->validate(request(),[
                 'name' => ['required'],
                 'description' => ['required'],
+                'state' => ['required']
             ]);
         }catch(ValidationException $e){
 
         }
         $data = request()->all();
-
         $todo->name = $data['name'];
         $todo->description = $data['description'];
+        $todo->state = $data['state'];
         $todo->save();
 
         session()->flash('success', 'Todo updated successfully');
