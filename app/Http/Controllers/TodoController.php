@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Todo;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -9,8 +10,8 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
     public function index(){
-        $todo = Todo::all();
-        return view('index')->with('todo',$todo);
+        $todo = Todo::with('project')->get();
+        return view('index', compact('todo'));
     }
 
     public function create(){
@@ -18,7 +19,8 @@ class TodoController extends Controller
     }
 
     public function details(Todo $todo){
-        return view('details')->with('todo', $todo);
+        $project = Project::all()->find($todo->project_id);
+        return view('details', compact('project'))->with('todo', $todo);
     }
 
     public function edit($todoId){
@@ -31,14 +33,15 @@ class TodoController extends Controller
             $this->validate(request(),[
                 'name' => ['required'],
                 'description' => ['required'],
+                'state' => ['required']
             ]);
         }catch(ValidationException $e){
 
         }
         $data = request()->all();
-
         $todo->name = $data['name'];
         $todo->description = $data['description'];
+        $todo->state = $data['state'];
         $todo->save();
 
         session()->flash('success', 'Todo updated successfully');
