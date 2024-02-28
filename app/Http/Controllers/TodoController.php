@@ -21,22 +21,39 @@ class TodoController extends Controller
         return view('details')->with('todo', $todo);
     }
 
-    public function edit(){
-        return view('edit');
+    public function edit($todoId){
+        $todo = Todo::find($todoId);
+        return view('edit')->with('todo', $todo);
     }
 
-    public function update(){
+    public function update(Todo $todo){
+        try{
+            $this->validate(request(),[
+                'name' => ['required'],
+                'description' => ['required'],
+            ]);
+        }catch(ValidationException $e){
 
+        }
+        $data = request()->all();
+
+        $todo->name = $data['name'];
+        $todo->description = $data['description'];
+        $todo->save();
+
+        session()->flash('success', 'Todo updated successfully');
+        return redirect('/');
     }
 
-    public function delete(){
-
+    public function delete(Todo $todo){
+        $todo->delete();
+        return redirect('/');
     }
 
     public function store(){
         try{
             $this->validate(request(),[
-                'name' => ['required'],
+                'name' => ['required', 'unique:todos,name'],
                 'description' => ['required']
             ]);
         } catch(ValidationException $e){
