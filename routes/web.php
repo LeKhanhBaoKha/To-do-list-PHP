@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;

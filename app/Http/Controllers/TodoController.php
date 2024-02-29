@@ -24,6 +24,8 @@ class TodoController extends Controller
     public function details(Todo $todo){
         $project = Project::all()->find($todo->project_id);
         return view('details', compact('project'))->with('todo', $todo);
+        $project = Project::all()->find($todo->project_id);
+        return view('details', compact('project'))->with('todo', $todo);
     }
 
     public function edit($todoId){
@@ -65,6 +67,7 @@ class TodoController extends Controller
     }
 
     public function store(){
+        return 1;
         try{
             $this->validate(request(),[
                 'name' => ['required'],
