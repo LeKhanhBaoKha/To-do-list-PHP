@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Project;
 use App\Models\Todo;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ class TodoController extends Controller
     public function create(){
         $todo = Project::all();
         return view('create', compact('todo'));
+        $todo = Project::all();
+        return view('create', compact('todo'));
     }
 
     public function details(Todo $todo){
@@ -26,7 +29,11 @@ class TodoController extends Controller
 
     public function edit($todoId){
         //use to load the value of the todo
+        //use to load the value of the todo
         $todo = Todo::find($todoId);
+        //use to load the list of project name
+        $projects = Project::all();
+        return view('edit', compact('projects'))->with('todo', $todo);
         //use to load the list of project name
         $projects = Project::all();
         return view('edit', compact('projects'))->with('todo', $todo);
@@ -39,6 +46,8 @@ class TodoController extends Controller
                 'description' => ['required'],
                 'state' => ['required'],
                 'project_id' => ['required']
+                'state' => ['required'],
+                'project_id' => ['required']
             ]);
         }catch(ValidationException $e){
 
@@ -46,6 +55,8 @@ class TodoController extends Controller
         $data = request()->all();
         $todo->name = $data['name'];
         $todo->description = $data['description'];
+        $todo->state = $data['state'];
+        $todo->project_id = $data['project_id'];
         $todo->state = $data['state'];
         $todo->project_id = $data['project_id'];
         $todo->save();
@@ -75,6 +86,8 @@ class TodoController extends Controller
 
         $todo->name = $data['name'];
         $todo->description = $data['description'];
+        $todo->project_id = $data['project_id'];
+
         $todo->project_id = $data['project_id'];
 
         $todo->save();
