@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Project;
 use App\Models\Todo;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
