@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name'); //I added the name column
             $table->text('description'); //I added the description column
+            $table->boolean('state');
         });
     }
 

@@ -7,9 +7,18 @@
   <tittle>
     @yield('tittle')
   </tittle>
+  <style>
+    footer{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <nav class="bg-gray-800">
+    <nav class="bg-gray-800 mb-5">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div class="relative flex h-16 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -42,8 +51,26 @@
               <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
                   <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                  <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">To Do List</a>
-                  <a href="/create" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create</a>
+                  <a href="/public" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">To Do List {{ auth()->check() ? 'For ' . auth()->user()->name : ''}}</a>
+
+                    @if (auth()->check())
+                    <a href="/public/create" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create</a>
+                    @endif
+
+                  {{-- check if the user is login or not --}}
+                  @if (Auth::check())
+                  {{-- if they are, change the log in button to log out --}}
+                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Log out</a>
+
+                  {{-- logout form --}}
+                    <form action="/public/logout" method="post" class="hidden" id="logout-form">@csrf</form>
+
+                  @else
+                    {{-- if they are not, keep the log in button --}}
+                    <a href="/public/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Login</a>
+                    <a href="/public/registerPage" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Register</a>
+                  @endif
+
                 </div>
               </div>
             </div>
@@ -62,5 +89,6 @@
       <div>
         @yield('content')
       </div>
+      <footer class="bg-gray-800"><p class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">@copy right: lekhanhbaokha@gmail.com</p></footer>
 </body>
 </html>

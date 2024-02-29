@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,12 @@ Route::get('details/{todo}', [TodoController::class, 'details']);
 Route::get('edit/{todo}', [TodoController::class, 'edit']);
 Route::post('update/{todo}', [TodoController::class, 'update']);
 Route::get('delete/{todo}', [TodoController::class, 'delete']);
+
+
+//Login routes
+Route::get('login', [LoginController::class,'login']);
+Route::post('authenticate', [LoginController::class, 'authenticate']);
+Route::post('logout', [LoginController::class, 'logout']);
+
+Route::get('registerPage', [RegisterController::class, 'registerPage']);
+Route::post('register', [RegisterController::class, 'register']);
