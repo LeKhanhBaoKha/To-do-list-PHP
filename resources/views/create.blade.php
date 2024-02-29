@@ -3,7 +3,7 @@
 
 @endsection
 @section('content')
-  <form class="w-[600px] m-auto border-gray-500 border rounded px-8 pt-6 pb-8 mb-4" action="store-data" method="post">
+  <form class="w-full max-w-sm" action="store-data" method="post">
     @csrf
     <div class="flex items-center mb-6">
       <div class="w-1/5">

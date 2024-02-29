@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<div class="w-1/2 m-auto max-w-sm rounded overflow-hidden border p-4">
-      <div class="font-bold text-xl mb-2">Name: {{$todo->name}}</div>
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">{{$todo->name}}</div>
       <p class="text-gray-700 text-base">
+        Description: {{$todo->description}}
         Description: {{$todo->description}}
       </p>
       <P>project name: {{$project->name}}</P>

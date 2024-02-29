@@ -32,11 +32,14 @@
         <td class="border px-4 py-2">
             <button class="font-bold py-2 px-4 rounded bg-blue-500 text-white mr-2">
                 <a href="/public/details/{{$todo->id}}">Details</a>
+                <a href="/public/details/{{$todo->id}}">Details</a>
             </button>
             <button class="font-bold py-2 px-4 rounded bg-blue-500 text-white mr-2">
                 <a href="/public/edit/{{$todo->id}}">Edit</a>
+                <a href="/public/edit/{{$todo->id}}">Edit</a>
             </button>
             <button class="font-bold py-2 px-4 rounded bg-red-500 text-white">
+                <a href="/public/delete/{{$todo->id}}">Delete</a>
                 <a href="/public/delete/{{$todo->id}}">Delete</a>
             </button>
         </td>

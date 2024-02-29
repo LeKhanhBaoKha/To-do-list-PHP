@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Project;
 use App\Models\Todo;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
     public function index(){
+        $todo = Todo::with('project')->get();
+        return view('index', compact('todo'));
         $todo = Todo::with('project')->get();
         return view('index', compact('todo'));
     }
@@ -20,6 +23,8 @@ class TodoController extends Controller
     }
 
     public function details(Todo $todo){
+        $project = Project::all()->find($todo->project_id);
+        return view('details', compact('project'))->with('todo', $todo);
         $project = Project::all()->find($todo->project_id);
         return view('details', compact('project'))->with('todo', $todo);
     }
