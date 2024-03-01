@@ -19,6 +19,18 @@
         transition: 0.5s;
     }
   </style>
+  <style>
+    footer{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    button{
+        transition: 0.5s;
+    }
+  </style>
 </head>
 <body>
     <nav class="bg-gray-800 mb-5">

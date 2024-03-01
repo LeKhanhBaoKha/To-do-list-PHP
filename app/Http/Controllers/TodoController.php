@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Project;
 use App\Models\Todo;
+use App\Models\User;
 use App\Models\User;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -13,9 +15,14 @@ class TodoController extends Controller
     public function index(){
         $todo = Todo::with('project', 'user')->get();
         return view('index', compact('todo'));
+        $todo = Todo::with('project', 'user')->get();
+        return view('index', compact('todo'));
     }
 
     public function create(){
+        $projects = Project::all();
+        $users = User::all();
+        return view('create', compact('projects', 'users'));
         $projects = Project::all();
         $users = User::all();
         return view('create', compact('projects', 'users'));
@@ -28,7 +35,12 @@ class TodoController extends Controller
 
     public function edit($todoId){
         //use to load the value of the todo
+        //use to load the value of the todo
         $todo = Todo::find($todoId);
+        //use to load the list of project name
+        $projects = Project::all();
+        $users = User::all();
+        return view('edit', compact('projects', 'users'))->with('todo', $todo);
         //use to load the list of project name
         $projects = Project::all();
         $users = User::all();
@@ -43,6 +55,9 @@ class TodoController extends Controller
                 'state' => ['required'],
                 'project_id' => ['required'],
                 'user_id' => ['required']
+                'state' => ['required'],
+                'project_id' => ['required'],
+                'user_id' => ['required']
             ]);
         }catch(ValidationException $e){
 
@@ -50,6 +65,9 @@ class TodoController extends Controller
         $data = request()->all();
         $todo->name = $data['name'];
         $todo->description = $data['description'];
+        $todo->state = $data['state'];
+        $todo->project_id = $data['project_id'];
+        $todo->user_id = $data['user_id'];
         $todo->state = $data['state'];
         $todo->project_id = $data['project_id'];
         $todo->user_id = $data['user_id'];
@@ -65,8 +83,13 @@ class TodoController extends Controller
     }
 
     public function store(){
+        return 1;
         try{
             $this->validate(request(),[
+                'name' => ['required'],
+                'description' => ['required'],
+                'project_id' => ['required'],
+                'user_id' => ['required']
                 'name' => ['required'],
                 'description' => ['required'],
                 'project_id' => ['required'],
@@ -76,10 +99,13 @@ class TodoController extends Controller
         }
         $data = request()->all();
 
+
         $todo = new Todo();
 
         $todo->name = $data['name'];
         $todo->description = $data['description'];
+        $todo->project_id = $data['project_id'];
+        $todo->user_id = $data['user_id'];
         $todo->project_id = $data['project_id'];
         $todo->user_id = $data['user_id'];
         $todo->save();

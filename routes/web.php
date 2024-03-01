@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [TodoController::class, 'index']);
-Route::get('/create', [TodoController::class, 'create']);
+Route::get('/create', [TodoController::class, 'create'])->middleware(['auth', 'verified']);
 Route::post('store-data', [TodoController::class, 'store']);
 Route::get('details/{todo}', [TodoController::class, 'details']);
 Route::get('edit/{todo}', [TodoController::class, 'edit']);
