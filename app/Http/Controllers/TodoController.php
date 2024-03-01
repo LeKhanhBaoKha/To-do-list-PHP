@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Project;
 use App\Models\Todo;
-use App\Models\User;
 use App\Models\User;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -54,7 +52,7 @@ class TodoController extends Controller
                 'description' => ['required'],
                 'state' => ['required'],
                 'project_id' => ['required'],
-                'user_id' => ['required']
+                'user_id' => ['required'],
                 'state' => ['required'],
                 'project_id' => ['required'],
                 'user_id' => ['required']
@@ -89,7 +87,7 @@ class TodoController extends Controller
                 'name' => ['required'],
                 'description' => ['required'],
                 'project_id' => ['required'],
-                'user_id' => ['required']
+                'user_id' => ['required'],
                 'name' => ['required'],
                 'description' => ['required'],
                 'project_id' => ['required'],
