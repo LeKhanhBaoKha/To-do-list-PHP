@@ -19,18 +19,6 @@
         transition: 0.5s;
     }
   </style>
-  <style>
-    footer{
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-    }
-    button{
-        transition: 0.5s;
-    }
-  </style>
 </head>
 <body>
     <nav class="bg-gray-800 mb-5">
@@ -66,7 +54,18 @@
               <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
                   <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                  <a href="/public" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">To Do List {{ auth()->check() ? 'For ' . auth()->user()->name : ''}}</a>
+                  <a href="/public/index" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" @if (auth()->check()==false)
+                    style="display:none;" @endif>
+
+                    @if (!auth()->check())
+
+                    @else
+                        @if (auth()->user()->is_admin == 1)
+                            Hello Admin
+                        @else
+                        To Do List {{ auth()->check() ? 'For ' . auth()->user()->name : ''}}</a>
+                        @endif
+                    @endif
 
                     @if (auth()->check())
                     <a href="/public/create" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create</a>

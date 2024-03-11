@@ -19,17 +19,20 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [TodoController::class, 'index']);
-Route::get('/create', [TodoController::class, 'create'])->middleware(['auth', 'verified']);
-Route::post('store-data', [TodoController::class, 'store']);
-Route::get('details/{todo}', [TodoController::class, 'details']);
-Route::get('edit/{todo}', [TodoController::class, 'edit']);
-Route::post('update/{todo}', [TodoController::class, 'update']);
-Route::get('delete/{todo}', [TodoController::class, 'delete']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/create', [TodoController::class, 'create']);
+    Route::post('store-data', [TodoController::class, 'store']);
+    Route::get('edit/{todo}', [TodoController::class, 'edit']);
+    Route::post('update/{todo}', [TodoController::class, 'update']);
+    Route::get('delete/{todo}', [TodoController::class, 'delete']);
+    Route::get('details/{todo}', [TodoController::class, 'details']);
+    Route::get('index', [TodoController::class, 'index']);
+});
 
+Route::get('/', [LoginController::class, 'login']);
 
 //Login routes
-Route::get('login', [LoginController::class,'login']);
+Route::get('login', [LoginController::class,'login'])->name('login');
 Route::post('authenticate', [LoginController::class, 'authenticate']);
 Route::post('logout', [LoginController::class, 'logout']);
 

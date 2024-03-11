@@ -36,4 +36,5 @@ class RegisterController extends Controller
         // event(new Registered($user));
         return redirect('login');
     }
+
 }
